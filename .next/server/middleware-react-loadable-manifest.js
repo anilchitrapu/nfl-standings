@@ -1,1 +1,0 @@
-self.__REACT_LOADABLE_MANIFEST="{\"app/page.tsx -> ../src/components/RankingsChartWrapper\":{\"id\":\"app/page.tsx -> ../src/components/RankingsChartWrapper\",\"files\":[\"static/chunks/_app-pages-browser_src_components_RankingsChartWrapper_tsx.js\"]}}"
