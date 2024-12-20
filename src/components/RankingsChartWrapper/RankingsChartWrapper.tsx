@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from 'react';
 import { useSearchParams, usePathname } from 'next/navigation';
 import useSWR from 'swr';
 import RankingsChart from '../RankingsChart';
@@ -15,30 +16,13 @@ function LoadingState({ message = "Loading..." }: { message?: string }) {
   );
 }
 
-export default function RankingsChartWrapper() {
+function RankingsChartContent() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  
-  const { data: rankings, error } = useSWR<NFLPowerRanking[]>(
-    '/api/nfl-rankings',
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-      refreshInterval: 300000,
-      keepPreviousData: true,
-      dedupingInterval: 60000,
-    }
-  );
+  const { data: rankings, error } = useSWR<NFLPowerRanking[]>('/api/rankings', fetcher);
 
   if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center p-4 text-red-500">
-          Failed to load rankings
-        </div>
-      </div>
-    );
+    return <div>Error loading rankings data</div>;
   }
 
   if (!rankings) {
@@ -51,5 +35,13 @@ export default function RankingsChartWrapper() {
       initialQuery={searchParams.toString()}
       pathname={pathname}
     />
+  );
+}
+
+export default function RankingsChartWrapper() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <RankingsChartContent />
+    </Suspense>
   );
 } 
