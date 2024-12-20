@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from 'react';
 import { useSearchParams, usePathname } from 'next/navigation';
 import useSWR from 'swr';
 import RankingsChart from './RankingsChart';
@@ -15,7 +16,7 @@ function LoadingState({ message = "Loading..." }: { message?: string }) {
   );
 }
 
-export default function RankingsChartWrapper() {
+function RankingsChartContent() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   
@@ -51,5 +52,13 @@ export default function RankingsChartWrapper() {
       initialQuery={searchParams.toString()}
       pathname={pathname}
     />
+  );
+}
+
+export default function RankingsChartWrapper() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <RankingsChartContent />
+    </Suspense>
   );
 } 
