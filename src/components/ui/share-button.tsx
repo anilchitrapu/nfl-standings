@@ -2,37 +2,47 @@
 
 import React from 'react'
 
-interface ShareButtonProps {
-  title: string
-  text: string
-  url?: string
+interface ShareData {
+  title: string;
+  text: string;
+  url?: string;
 }
 
-export function ShareButton({ title, text, url }: ShareButtonProps) {
-  function handleShare() {
-    const shareData = { title, text };
+interface ShareButtonProps {
+  title: string;
+  text: string;
+  url?: string;
+  className?: string;
+}
+
+export function ShareButton({ title, text, url, className }: ShareButtonProps) {
+  const handleShare = async () => {
+    const shareData: ShareData = { title, text };
     if (url) {
-      shareData['url'] = url;
+      shareData.url = url;
     }
 
-    if (navigator.share) {
-      navigator.share(shareData)
-        .then(() => console.log('Shared successfully'))
-        .catch(console.error)
-    } else {
-      // Fallback if the browser does not support navigator.share
-      const fallbackText = url ? `${text}\n${url}` : text;
-      navigator.clipboard.writeText(fallbackText);
-      alert('Copied text to clipboard');
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback to clipboard
+        const shareText = `${title}\n${text}${url ? `\n${url}` : ''}`;
+        await navigator.clipboard.writeText(shareText);
+        // You might want to show a toast/notification here
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
     }
-  }
+  };
 
   return (
     <button
       onClick={handleShare}
-      className="px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-medium transition-colors"
+      className={className}
+      aria-label="Share"
     >
       Share
     </button>
-  )
+  );
 }
