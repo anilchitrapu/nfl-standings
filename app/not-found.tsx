@@ -21,7 +21,7 @@ function NotFoundWrapper() {
   );
 }
 
-export default function NotFound() {
+export default function NotFoundPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <NotFoundWrapper />
