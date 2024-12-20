@@ -23,10 +23,8 @@ function NotFoundWrapper() {
 
 export default function NotFound() {
   return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <NotFoundWrapper />
-      </Suspense>
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <NotFoundWrapper />
+    </Suspense>
   );
 } 
