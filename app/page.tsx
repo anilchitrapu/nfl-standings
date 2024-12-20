@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from 'react';
 import useSWR from 'swr';
 import RankingsChart from '@/components/RankingsChart';
 import { NFLPowerRanking } from '@/lib/process-rankings';
@@ -34,24 +35,23 @@ function LoadingState({ message = "Loading..." }: { message?: string }) {
   );
 }
 
-export default function HomePage() {
+// Wrap the chart component that uses search params
+function RankingsChartWrapper() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-
-  // Fetch data with optimized SWR config
+  
   const { data: rankings, error } = useSWR<NFLPowerRanking[]>(
     '/api/nfl-rankings',
     fetcher,
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      refreshInterval: 300000, // 5 minutes
+      refreshInterval: 300000,
       keepPreviousData: true,
       dedupingInterval: 60000,
     }
   );
 
-  // Early return for error state
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -62,18 +62,25 @@ export default function HomePage() {
     );
   }
 
-  // Show loading state if no data
   if (!rankings) {
     return <LoadingState message="Loading rankings data..." />;
   }
 
   return (
+    <RankingsChart
+      teamsData={rankings}
+      initialQuery={searchParams.toString()}
+      pathname={pathname}
+    />
+  );
+}
+
+export default function HomePage() {
+  return (
     <main className="min-h-screen p-2 sm:p-4">
-      <RankingsChart
-        teamsData={rankings}
-        initialQuery={searchParams.toString()}
-        pathname={pathname}
-      />
+      <Suspense fallback={<LoadingState />}>
+        <RankingsChartWrapper />
+      </Suspense>
     </main>
   );
 }
