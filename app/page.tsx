@@ -2,6 +2,7 @@
 
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+import { useSearchParams } from 'next/navigation';
 
 // Import the wrapper component dynamically to avoid SSR issues
 const RankingsChartWrapper = dynamic(
@@ -16,10 +17,20 @@ const RankingsChartWrapper = dynamic(
   }
 );
 
+function SearchParamsWrapper() {
+  const searchParams = useSearchParams()
+  // ... existing search params logic ...
+  return (
+    // ... existing JSX that uses searchParams ...
+  )
+}
+
 export default function HomePage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <RankingsChartWrapper />
-    </Suspense>
+    <main>
+      <Suspense fallback={<div>Loading...</div>}>
+        <SearchParamsWrapper />
+      </Suspense>
+    </main>
   );
 }
