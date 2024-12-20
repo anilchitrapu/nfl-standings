@@ -18,16 +18,8 @@ const RankingsChartWrapper = dynamic(
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen p-2 sm:p-4">
-      <Suspense 
-        fallback={
-          <div className="flex items-center justify-center min-h-screen">
-            <div className="text-center p-4">Loading...</div>
-          </div>
-        }
-      >
-        <RankingsChartWrapper />
-      </Suspense>
-    </main>
+    <Suspense fallback={<div>Loading...</div>}>
+      <RankingsChartWrapper />
+    </Suspense>
   );
 }
