@@ -4,6 +4,14 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 function NotFoundWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NotFound />
+    </Suspense>
+  );
+}
+
+function NotFound() {
   const searchParams = useSearchParams();
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -23,8 +31,6 @@ function NotFoundWrapper() {
 
 export default function NotFoundPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <NotFoundWrapper />
-    </Suspense>
+    <NotFoundWrapper />
   );
 } 
