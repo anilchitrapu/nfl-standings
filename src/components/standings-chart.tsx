@@ -1,1 +1,0 @@
-export { RankingsChart as StandingsChart }; 
