@@ -3,14 +3,6 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-function NotFoundWrapper() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <NotFound />
-    </Suspense>
-  );
-}
-
 function NotFound() {
   const searchParams = useSearchParams();
   return (
@@ -31,6 +23,8 @@ function NotFound() {
 
 export default function NotFoundPage() {
   return (
-    <NotFoundWrapper />
+    <Suspense fallback={<div>Loading...</div>}>
+      <NotFound />
+    </Suspense>
   );
 } 
