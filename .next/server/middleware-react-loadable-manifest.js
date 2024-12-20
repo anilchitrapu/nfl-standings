@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST="{\"app/not-found.tsx -> @/components/NotFoundWrapper\":{\"id\":\"app/not-found.tsx -> @/components/NotFoundWrapper\",\"files\":[\"static/chunks/_app-pages-browser_src_components_NotFoundWrapper_tsx.js\"]},\"app/page.tsx -> ../src/components/RankingsChartWrapper\":{\"id\":\"app/page.tsx -> ../src/components/RankingsChartWrapper\",\"files\":[\"static/chunks/_app-pages-browser_src_components_RankingsChartWrapper_tsx.js\"]}}"
