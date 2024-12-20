@@ -100,7 +100,6 @@ function CustomTooltip({
         <p>Week {label}</p>
         <p>Rank: {dataPoint.rank}</p>
         <p>Record: {dataPoint.record}</p>
-        <p>Win%: {(Number(dataPoint.winPct || 0) * 100).toFixed(1)}%</p>
       </div>
     </div>
   );
