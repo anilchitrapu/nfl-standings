@@ -1,8 +1,8 @@
 "use client";
 
 import useSWR from 'swr';
-import RankingsChart from '@/src/components/RankingsChart';
-import { NFLPowerRanking } from '@/src/lib/process-rankings';
+import RankingsChart from '@/components/RankingsChart';
+import { NFLPowerRanking } from '@/lib/process-rankings';
 import { useSearchParams, usePathname } from 'next/navigation';
 
 // Move fetcher outside component

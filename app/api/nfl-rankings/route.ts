@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { buildPowerRankingsOverTime } from '@/src/lib/process-rankings';
-import { fetchEspnNflData } from '@/src/lib/espn-fetch';
-import type { ESPNEvent } from '@/src/lib/process-rankings';
+import { buildPowerRankingsOverTime } from '@/lib/process-rankings';
+import { fetchEspnNflData } from '@/lib/espn-fetch';
+import type { ESPNEvent } from '@/lib/process-rankings';
 
 // Minimal types for calendar structure
 interface ESPNCalendarEntry {
