@@ -1,0 +1,4 @@
+{
+  "/page": "app/page.js",
+  "/api/nfl-rankings/route": "app/api/nfl-rankings/route.js"
+}
