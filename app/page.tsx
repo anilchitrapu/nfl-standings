@@ -18,7 +18,6 @@ const RankingsChartWrapper = dynamic(
 
 export default function HomePage() {
   return (
-    // Add key prop to Suspense to ensure proper remounting
     <Suspense fallback={<div>Loading...</div>} key="home-page-suspense">
       <main className="min-h-screen p-2 sm:p-4">
         <RankingsChartWrapper />
