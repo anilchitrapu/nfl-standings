@@ -10,7 +10,7 @@ const RankingsChartWrapper = dynamic(
     ssr: false,
     loading: () => (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center p-4">Loading rankings data...</div>
+        <div>Loading...</div>
       </div>
     ),
   }
@@ -18,7 +18,8 @@ const RankingsChartWrapper = dynamic(
 
 export default function HomePage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    // Add key prop to Suspense to ensure proper remounting
+    <Suspense fallback={<div>Loading...</div>} key="home-page-suspense">
       <main className="min-h-screen p-2 sm:p-4">
         <RankingsChartWrapper />
       </main>

@@ -13,6 +13,12 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    appDir: true,
+  },
+  onError: (err) => {
+    console.error('Next.js build error:', err);
+  },
 }
 
 module.exports = nextConfig 
