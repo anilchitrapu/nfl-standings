@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { fetchEspnNflData } from '@/src/lib/espn-fetch';
 import { buildPowerRankingsOverTime } from '@/lib/process-rankings';
-import type { ESPNResponse } from '@/src/services/apiService';
+import type { ESPNGame, ESPNResponse } from '@/src/services/apiService';
 
 export async function GET() {
   try {
@@ -10,10 +10,10 @@ export async function GET() {
       throw new Error('No data received from ESPN');
     }
 
-    const allEvents = espnData.events;
+    const allEvents = espnData.events as ESPNGame[];
     
-    // Sort events chronologically
-    allEvents.sort((a, b) => 
+    // Sort events chronologically with proper typing
+    allEvents.sort((a: ESPNGame, b: ESPNGame) => 
       new Date(a.date).getTime() - new Date(b.date).getTime()
     );
 
@@ -21,7 +21,7 @@ export async function GET() {
       total: allEvents.length,
       firstDate: allEvents[0]?.date,
       lastDate: allEvents[allEvents.length - 1]?.date,
-      weekRange: `Week ${allEvents[0]?.week.number} to Week ${allEvents[allEvents.length - 1]?.week.number}`
+      weekRange: `Week ${allEvents[0]?.week?.number} to Week ${allEvents[allEvents.length - 1]?.week?.number}`
     });
 
     const allRankings = await buildPowerRankingsOverTime(allEvents);
